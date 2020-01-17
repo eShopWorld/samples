@@ -1,7 +1,9 @@
-﻿namespace Eshopworld.EDA.Samples.Controllers
+﻿using Eshopworld.EDA.Samples.Models;
+
+namespace Eshopworld.EDA.Samples.Controllers
 {
     public interface IWeatherService
     {
-        void DoBusinessLogic();
+        void DoBusinessLogic(WeatherForecastModel weatherModel);
     }
 }
