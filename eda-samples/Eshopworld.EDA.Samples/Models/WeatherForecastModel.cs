@@ -5,7 +5,7 @@ namespace Eshopworld.EDA.Samples.Models
 {
     public class WeatherForecastModel
     {
-        public  string Id { get; set; }
+        public string Id { get; set; }
 
         public DateTime Date { get; set; }
 
