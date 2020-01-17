@@ -7,9 +7,74 @@ using Eshopworld.EDA.Samples.Models;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 
 namespace Eshopworld.EDA.Samples.Controllers
 {
+    public static class Constants
+    {
+        public const string EventTypeHeader = "Esw-EventType";
+    }
+
+    public interface IWeatherService
+    {
+        void DoBusinessLogic();
+    }
+
+    public interface IStormService
+    {
+        void DoBusinessLogic();
+    }
+
+    [ApiController]
+    [Route("[controller]")]
+    public class WebhookController : ControllerBase
+    {
+        private readonly IWeatherService _weatherService;
+        private readonly IStormService _stormService;
+
+        public WebhookController(
+            IWeatherService weatherService, 
+            IStormService stormService)
+        {
+            _weatherService = weatherService;
+            _stormService = stormService;
+        }
+
+        /// <summary>
+        /// A generic and singular webhook endpoint which can consume any number of generic events, deserialise them into their respective types and process the data based on request business logic
+        /// </summary>
+        /// <param name="payload"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Post(JObject payload)
+        {
+            //todo move to helper extension method
+
+            var @event = Request.GetEswEventTypeHeader();
+
+            if (@event == null)
+            {
+                //todo check new error and validation patterns in dotnet core 3
+                return BadRequest(new { Message = $"{Constants.EventTypeHeader} was not found" });
+            }
+
+            switch (@event)
+            {
+                case nameof(WeatherUpdateEvent):
+                    _weatherService.DoBusinessLogic();
+                    break;
+                case nameof(StormNotificationEvent):
+                    _stormService.DoBusinessLogic();
+                    break;
+                default:
+                    throw new NotImplementedException($"The specified event type {nameof(@event)} was not found");
+            }
+
+            return NoContent();
+        }
+    }
+
     /// <summary>
     /// This is a sample controller which illustrations how to push messages to EDA using an event model using light events where the model is enriched.
     /// </summary>
