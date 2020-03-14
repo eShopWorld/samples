@@ -1,4 +1,4 @@
-﻿namespace Eshopworld.EDA.Samples.Controllers
+﻿namespace Eshopworld.EDA.Samples
 {
     public static class Constants
     {
