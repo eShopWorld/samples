@@ -4,7 +4,6 @@ using System.Linq;
 using Eshopworld.Core;
 using Eshopworld.EDA.Samples.Events;
 using Eshopworld.EDA.Samples.Models;
-using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -83,16 +82,6 @@ namespace Eshopworld.EDA.Samples.Controllers
             _bigBrother.Publish(@event);
 
             return NoContent();
-        }
-    }
-
-    public class WeatherForcastModelValidator : AbstractValidator<WeatherForecastModel>
-    {
-        public WeatherForcastModelValidator()
-        {
-            RuleFor(x => x.Date).NotNull();
-            RuleFor(x => x.TemperatureC).NotEmpty();
-            RuleFor(x => x.Summary).NotEmpty();
         }
     }
 }

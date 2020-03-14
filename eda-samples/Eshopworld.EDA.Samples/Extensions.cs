@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
 
-namespace Eshopworld.EDA.Samples.Controllers
+namespace Eshopworld.EDA.Samples
 {
     public static class Extensions
     {

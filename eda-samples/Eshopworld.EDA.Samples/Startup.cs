@@ -1,5 +1,6 @@
 using Eshopworld.EDA.Samples.Controllers;
 using Eshopworld.EDA.Samples.Models;
+using Eshopworld.EDA.Samples.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;

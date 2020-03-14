@@ -1,6 +1,7 @@
 ﻿using System;
 using Eshopworld.EDA.Samples.Events;
 using Eshopworld.EDA.Samples.Models;
+using Eshopworld.EDA.Samples.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 

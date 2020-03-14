@@ -1,6 +1,6 @@
 ﻿using Eshopworld.EDA.Samples.Models;
 
-namespace Eshopworld.EDA.Samples.Controllers
+namespace Eshopworld.EDA.Samples.Services
 {
     public interface IWeatherService
     {
