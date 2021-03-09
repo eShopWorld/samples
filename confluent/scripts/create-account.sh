@@ -78,6 +78,7 @@ fi
 
 ccloud kafka acl create --allow --service-account $ServiceAccountId --operation CREATE --prefix --topic $EswEnvironment-$EswDomain- > /dev/null
 ccloud kafka acl create --allow --service-account $ServiceAccountId --operation WRITE --prefix --topic $EswEnvironment-$EswDomain- > /dev/null
+ccloud kafka acl create --allow --service-account $ServiceAccountId --operation WRITE --prefix --topic $EswEnvironment-retailer-importresults > /dev/null
 ccloud kafka acl create --allow --service-account $ServiceAccountId --operation ALTERCONFIGS --prefix --topic $EswEnvironment-$EswDomain- > /dev/null
 ccloud kafka acl create --allow --service-account $ServiceAccountId --operation READ --prefix --topic $EswEnvironment- > /dev/null
 
