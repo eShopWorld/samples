@@ -90,7 +90,7 @@ if [ -z "$ClusterApiKey" ]
     then
         ClusterApi=$(ccloud api-key create --service-account $ServiceAccountId --resource $ClusterId -o json | jq .)
     else
-        if [ $RecreateKeys ]
+        if $RecreateKeys
             then
                 (ccloud api-key delete $ClusterApiKey) > /dev/null 2>&1
                 ClusterApi=$(ccloud api-key create --service-account $ServiceAccountId --resource $ClusterId -o json | jq .)
@@ -105,7 +105,7 @@ if [ -z "$SchemaRegistryApiKey" ]
     then
         SchemaRegistryApi=$(ccloud api-key create --service-account $ServiceAccountId --resource $SchemaRegistryId -o json | jq .)
     else
-        if [ $RecreateKeys ]
+        if $RecreateKeys
             then
                 (ccloud api-key delete $SchemaRegistryApiKey) > /dev/null 2>&1
                 SchemaRegistryApi=$(ccloud api-key create --service-account $ServiceAccountId --resource $SchemaRegistryId -o json | jq .)
