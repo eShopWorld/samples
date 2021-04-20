@@ -10,7 +10,8 @@ ServiceAccountName=$3
 ServiceAccountDescription=$4
 EswEnvironment=$5
 EswDomain=$6
-RecreateKeys=$7 || false
+RecreateKeys=${7:-false} 
+
 
 if [ -z "$ConfluentEnvironmentName" ]
   then
@@ -99,6 +100,8 @@ if [ -z "$ClusterApiKey" ]
         fi
 fi
 
+jq -n --argjson CLUSTERAPI "$ClusterApi" '{Kafka: $CLUSTERAPI}' | jq .
+
 SchemaRegistryId=$(ccloud schema-registry cluster describe -o json | jq -r .cluster_id)
 SchemaRegistryApiKey=$(ccloud api-key list -o json | jq -r --arg ACCOUNTID "$ServiceAccountId" --arg RESOURCEID "$SchemaRegistryId" '.[] | select(.owner==$ACCOUNTID and .resource_id==$RESOURCEID) | .key')
 if [ -z "$SchemaRegistryApiKey" ]
@@ -113,4 +116,5 @@ if [ -z "$SchemaRegistryApiKey" ]
                 SchemaRegistryApi=$(jq -n -r --arg ApiKey "$SchemaRegistryApiKey" '{key: $ApiKey, secret:""}') 
         fi
 fi
-jq -n --argjson CLUSTERAPI "$ClusterApi" --argjson SCHEMAREGISTRYAPI "$SchemaRegistryApi" '{Kafka: $CLUSTERAPI, SchemaRegistry: $SCHEMAREGISTRYAPI}' | jq .
+
+jq -n --argjson SCHEMAREGISTRYAPI "$SchemaRegistryApi" '{SchemaRegistry: $SCHEMAREGISTRYAPI}' | jq .
